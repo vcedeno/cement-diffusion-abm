@@ -1,0 +1,6 @@
+parameter,value,role
+D_ref,1124.5848062887808,2010-2019 training-only median RMX-month demand exposure (440040 observations)
+T_G,24,"structural DOT implementation-maturity timescale, months"
+R_P,20.0,"structural RMX peer radius, miles; peers constructed geometrically"
+demand_holdout_start,,first month with pre-period-generated state demand
+demand_holdout_years,,pre-holdout years used for state-by-calendar-month seasonal demand means

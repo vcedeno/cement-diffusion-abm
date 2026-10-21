@@ -1,0 +1,69 @@
+{
+  "experiment": "PLC04_corrected_OAT_parameter_sensitivity",
+  "design": "one_at_a_time_plus_reference",
+  "seed": 42,
+  "randomization": "common_random_numbers",
+  "runner": "model/run_plc_simplified_common_random.py",
+  "empirical_dir": "outputs/plc_final_2026/01_observed_inputs",
+  "capacity_file": "data/mfr_capacity_for_model.csv",
+  "evidence_file": "outputs/plc_final_2026/evidence/mfr_plc_evidence_through_2022.csv",
+  "reference_parameters": {
+    "T_A": 5.0,
+    "H_M": 10,
+    "T_M": 29,
+    "theta_M": 0.19491661627095874,
+    "kappa": 8.439534971412707,
+    "B0": 1.6223578864493762
+  },
+  "perturbations": {
+    "B0_minus20": {
+      "parameter": "B0",
+      "value": 1.297886309159501
+    },
+    "B0_plus20": {
+      "parameter": "B0",
+      "value": 1.9468294637392514
+    },
+    "kappa_minus20": {
+      "parameter": "kappa",
+      "value": 6.751627977130166
+    },
+    "kappa_plus20": {
+      "parameter": "kappa",
+      "value": 10.127441965695247
+    },
+    "TA_minus20": {
+      "parameter": "T_A",
+      "value": 4.0
+    },
+    "TA_plus20": {
+      "parameter": "T_A",
+      "value": 6.0
+    },
+    "theta_minus20": {
+      "parameter": "theta_M",
+      "value": 0.155933293016767
+    },
+    "theta_plus20": {
+      "parameter": "theta_M",
+      "value": 0.23389993952515048
+    },
+    "HM_minus20": {
+      "parameter": "H_M",
+      "value": 8
+    },
+    "HM_plus20": {
+      "parameter": "H_M",
+      "value": 12
+    },
+    "TM_minus20": {
+      "parameter": "T_M",
+      "value": 23
+    },
+    "TM_plus20": {
+      "parameter": "T_M",
+      "value": 35
+    }
+  },
+  "expected_evidence_boundaries": 24
+}

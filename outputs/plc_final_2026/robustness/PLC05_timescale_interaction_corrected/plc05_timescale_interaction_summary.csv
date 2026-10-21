@@ -1,0 +1,10 @@
+T_A,T_M,A_2024,A_2024_pct,reference,source_directory
+4,23,0.6801761961984635,68.01761961984634,False,outputs/plc_final_2026/robustness/PLC05_timescale_interaction_corrected/TA4_TM23
+4,29,0.6668197702763535,66.68197702763536,False,outputs/plc_final_2026/robustness/PLC04_parameter_sensitivity_corrected/TA_minus20
+4,35,0.6490040546789392,64.90040546789392,False,outputs/plc_final_2026/robustness/PLC05_timescale_interaction_corrected/TA4_TM35
+5,23,0.629716483998123,62.971648399812295,False,outputs/plc_final_2026/robustness/PLC04_parameter_sensitivity_corrected/TM_minus20
+5,29,0.6118235932242904,61.182359322429036,True,outputs/plc_final_2026/robustness/PLC04_parameter_sensitivity_corrected/reference
+5,35,0.6026138359860239,60.26138359860239,False,outputs/plc_final_2026/robustness/PLC04_parameter_sensitivity_corrected/TM_plus20
+6,23,0.5877560025280256,58.77560025280256,False,outputs/plc_final_2026/robustness/PLC05_timescale_interaction_corrected/TA6_TM23
+6,29,0.5694503805914234,56.94503805914234,False,outputs/plc_final_2026/robustness/PLC04_parameter_sensitivity_corrected/TA_plus20
+6,35,0.5560090541981253,55.60090541981253,False,outputs/plc_final_2026/robustness/PLC05_timescale_interaction_corrected/TA6_TM35

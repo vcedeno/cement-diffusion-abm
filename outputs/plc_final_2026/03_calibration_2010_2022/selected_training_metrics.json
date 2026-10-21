@@ -1,0 +1,14 @@
+{
+  "selected_trial": 406,
+  "train_2010_2022": {
+    "objective": 0.01584886787834998,
+    "E_level": 0.030237794082588094,
+    "E_growth": 0.007073684842554755,
+    "E_transition": 0.003472222222222222,
+    "E_endpoint": 0.009372003481038725,
+    "rmse_full": 0.017389017822346406,
+    "endpoint_error": -0.009680910846112945,
+    "crossing_10_months": 0,
+    "crossing_20_months": 1
+  }
+}

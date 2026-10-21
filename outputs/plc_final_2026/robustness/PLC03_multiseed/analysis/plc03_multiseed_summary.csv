@@ -1,0 +1,2 @@
+n_seeds,mean_peer_effect_pp,sd_peer_effect_pp,min_peer_effect_pp,max_peer_effect_pp,ci95_mean_low_pp,ci95_mean_high_pp,positive_effect_seeds,mean_enabled_adoption_pct,mean_disabled_adoption_pct,mean_timing_advantage_months,seeds_with_different_mfr_availability,total_different_manufacturer_months
+20,4.742257162831088,0.3733736787946398,3.931314690609833,5.29870505010166,4.567512902177192,4.917001423484983,20,61.2536306766249,56.51137351379382,3.45,1,1

@@ -1,0 +1,51 @@
+{
+  "simulator": "/Users/vanessacedeno/Desktop/ABM-cement/ABM/model/run_plc_simplified.py",
+  "simulator_sha256": "19119961c8740b9d14dd734fd7ef11a90d02729e0ad86ff412418d2eecf0f083",
+  "usgs_sha256": "782410f98f30f488bfd9c9a5018ae195891bca8937b36b1e73f7715ba9d61259",
+  "empirical_dir": "/Users/vanessacedeno/Desktop/ABM-cement/ABM/outputs/plc_final_2026/01_observed_inputs",
+  "empirical_input_sha256": {
+    "rmx_month_demand_exposure.csv": "0d2d5d56d012384239b6b792120e92f9d3e0b1d72a1da305be25c2752f6c10e7",
+    "mfr_rmx_pairs.csv": "839d399c7f2a1523e19b49209cf65dfd42e909f228994e06e07a473901a9fde3",
+    "rmx_peer_pairs.csv": "b4186e1ef5c9efec03ae8537668fe3b2046b10e055c3febbac896f3793a75268",
+    "dot_monthly_state.csv": "21e94302cfcdaaaf7b93c379627cb8fca51f6277596edfd8ebc9c4944d43e9c1"
+  },
+  "capacity_file": "/Users/vanessacedeno/Desktop/ABM-cement/ABM/data/mfr_capacity_for_model.csv",
+  "capacity_sha256": "ca06f93be0cba60c00124f046fe090fac680ce233b5042931e17a0a9e2d05f9c",
+  "evidence_file": "/Users/vanessacedeno/Desktop/ABM-cement/ABM/outputs/plc_final_2026/evidence/mfr_plc_evidence_through_2022.csv",
+  "evidence_sha256": "486fa835e02bc46e4276c27d510c9cf1ba3ac1586423eba2e4b70158dba160e2",
+  "screen_seed": 42,
+  "objective_version": "v3_train_2010_2022_annual_growth_normalized",
+  "objective_weights": [
+    0.4,
+    0.3,
+    0.2,
+    0.1
+  ],
+  "training": "2010-01..2022-12",
+  "search_bounds": {
+    "T_A": [
+      3,
+      36
+    ],
+    "kappa": [
+      4,
+      24
+    ],
+    "B0": [
+      0.5,
+      3
+    ],
+    "theta_M": [
+      0.01,
+      0.2
+    ],
+    "H_M": [
+      1,
+      12
+    ],
+    "T_M": [
+      1,
+      36
+    ]
+  }
+}

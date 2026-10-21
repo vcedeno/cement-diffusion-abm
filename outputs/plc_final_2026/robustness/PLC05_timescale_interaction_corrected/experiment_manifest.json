@@ -1,0 +1,31 @@
+{
+  "experiment": "PLC05_corrected_timescale_interaction",
+  "design": "3x3_factorial",
+  "seed": 42,
+  "randomization": "common_random_numbers",
+  "runner": "model/run_plc_simplified_common_random.py",
+  "empirical_dir": "outputs/plc_final_2026/01_observed_inputs",
+  "capacity_file": "data/mfr_capacity_for_model.csv",
+  "evidence_file": "outputs/plc_final_2026/evidence/mfr_plc_evidence_through_2022.csv",
+  "reference_parameters": {
+    "kappa": 8.439534971412707,
+    "B0": 1.6223578864493762,
+    "theta_M": 0.19491661627095874,
+    "H_M": 10,
+    "T_A": 5,
+    "T_M": 29
+  },
+  "T_A_values": [
+    4,
+    5,
+    6
+  ],
+  "T_M_values": [
+    23,
+    29,
+    35
+  ],
+  "reused_PLC04_runs": 5,
+  "new_PLC05_runs": 4,
+  "outcome": "December 2024 national demand-weighted RMX adoption"
+}

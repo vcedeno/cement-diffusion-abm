@@ -1,0 +1,12 @@
+parameter,value
+seed,110
+T_A,5.0
+lambda_A,0.18126924692201818
+behavioral_pressure,d_i + phi_s
+disable_peer_effect,1
+disable_endogenous_mfr,0
+kappa,8.439534971412707
+B0,1.6223578864493762
+theta_M,0.19491661627095874
+H_M,10
+T_M,29
