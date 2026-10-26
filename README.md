@@ -1,6 +1,10 @@
 # Cement Diffusion ABM
 
-An empirically grounded agent-based model (ABM) for studying the diffusion of lower-carbon cement technologies across the U.S. cement and concrete supply chain.
+##Description:
+An empirically grounded agent-based model (ABM) for studying the diffusion of lower-carbon cement technologies across the U.S. cement and concrete supply chain, including calibration, sensitivity analysis, and prospective LC3 scenarios.
+
+##Topics: 
+agent-based-modeling, decarbonization, python, simulation, cement, technology-diffusion, climate-tech
 
 The repository supports two applications:
 
