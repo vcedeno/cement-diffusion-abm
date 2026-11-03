@@ -1,0 +1,11 @@
+mfr_src_id,model_evidence_class,supported_month_if_dated,date_evidence_class,supported_date
+93,plant_dated_availability_boundary,2029-01,scenario_assumption,2029-01
+89,plant_dated_availability_boundary,2032-01,scenario_assumption,2032-01
+88,plant_dated_availability_boundary,2032-01,scenario_assumption,2032-01
+82,plant_dated_availability_boundary,2029-01,scenario_assumption,2029-01
+62,plant_dated_availability_boundary,2029-01,scenario_assumption,2029-01
+61,plant_dated_availability_boundary,2029-01,scenario_assumption,2029-01
+9,plant_dated_availability_boundary,2029-01,scenario_assumption,2029-01
+3,plant_dated_availability_boundary,2029-01,scenario_assumption,2029-01
+84,plant_dated_availability_boundary,2029-01,scenario_assumption,2029-01
+76,plant_dated_availability_boundary,2029-01,scenario_assumption,2029-01

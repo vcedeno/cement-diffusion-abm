@@ -62,9 +62,9 @@ This directory contains the Python implementation, calibration, and evaluation w
 
 **Manufacturer evidence:** The corrected E01 evaluation includes 24 documented availability boundaries, compared with 20 in the historical calibration implementation.
 
-**Reproducibility status:** The corrected E01 trajectory has not been reproduced exactly using the currently available simulator. Differences begin in December 2018 and affect 73 monthly observations. The underlying cause has not been established.
+**Reproducibility status:** The corrected E01 manuscript trajectory is preserved as an archived result. Its evaluation calculations can be reproduced from saved outputs. Exact simulation-level reproduction remains under review.
 
-**Interpretation:** The verified calibration run and the corrected manuscript evaluation are distinct simulation results. The reported evaluation RMSE of 0.051927 applies to corrected E01, not to the independently reproduced historical calibration trajectory.
+**Interpretation:** The verified calibration run and corrected manuscript evaluation are distinct results. The reported evaluation RMSE of 0.051927 applies to the archived corrected E01 trajectory.
 
 ## `simple_abm_build_network.py`
 
@@ -139,7 +139,7 @@ Outputs are written to `outputs/plc_final_2026/figures_corrected/`.
 
 **Manuscript result:** Corrected E01 evaluation RMSE = 0.051927.
 
-**Reproducibility:** The script reproduces the evaluation calculation from the saved corrected E01 trajectory. Exact reproduction of that trajectory using the currently available simulator has not been established; this limitation is documented in the Historical PLC Evaluation section above.
+**Reproducibility:** The script regenerates the evaluation calculations and figure from the archived corrected E01 trajectory. Simulation-level reproduction is being reviewed separately.
 
 ## PLC Sensitivity and Robustness Analysis
 
@@ -178,3 +178,50 @@ Additional results are preserved under `outputs/plc_final_2026/robustness/`:
 Saved experiment outputs support retrospective analysis without rerunning the simulations. The original experiment results and corrected robustness analyses are retained separately to preserve their provenance.
 
 The scripts and saved outputs have been transferred; their execution dependencies and portability within the public repository have not yet been fully verified.
+
+## Manuscript Figures 3 and 4
+
+### Figure 3: Historical PLC mechanisms
+
+Script: `model/plots/plot_plc_mechanisms_lc3_bridge.py`
+
+Compares regulatory readiness, RMX behavioral response, local material
+access, and demand-weighted adoption with and without endogenous
+manufacturer response.
+
+### Figure 4: Prospective LC3 regulatory scenarios
+
+Script: `model/plots/build_lc3_national_figure4.py`
+
+Four hypothetical DOT implementation schedules are evaluated over
+2026–2045 using ten matched seeds (42–51).
+
+Replot saved results:
+
+    python model/plots/build_lc3_national_figure4.py --plot
+
+Run simulations and regenerate the figure:
+
+    python model/plots/build_lc3_national_figure4.py
+
+December 2045 median national demand-weighted LC3 adoption, using a
+trailing 12-month measure:
+
+- No DOT implementation: 1.1%.
+- Limited implementation (14 states): 51.1%.
+- Staggered implementation (47 states): 68.3%.
+- Implementation in 47 states in 2029: 71.4%.
+
+Corresponding December 2045 manufacturer availability counts are
+10, 14, 20, and 20, respectively.
+
+The scenarios retain identical prescribed manufacturer introductions
+and fixed physical manufacturing capacities. Endogenous manufacturer
+response changes material availability, not production capacity.
+
+The manufacturer response uses a calibrated 10-month demand-pressure
+accumulation window (H_M) and a 29-month material-introduction delay
+(T_M). These are calibrated model parameters, not independently
+measured industrial durations.
+
+The LC3 scenarios are illustrative conditional simulations, not forecasts.

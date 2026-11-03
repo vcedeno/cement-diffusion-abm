@@ -164,7 +164,7 @@ The archived LC3 05C reference and multiseed results are available under `output
 - LC3 is a prospective scenario application, not an empirical validation against observed LC3 diffusion.
 - The selected PLC calibration uses 2010–2022 observations; 2023–2024 is the evaluation period.
 - The corrected PLC E01 evaluation RMSE is 0.051927 for January 2023–December 2024.
-- Exact reproduction of the corrected E01 trajectory from the available historical simulator has not been established.
+- The corrected E01 evaluation is preserved as an archived manuscript result. Its evaluation metrics and figures can be regenerated from the saved trajectory; exact simulation-level reproduction remains under review.
 - The archived sensitivity experiments and LC3 multiseed outputs can be analyzed without rerunning their simulations.
 - Some large agent-level outputs are intentionally excluded to keep the repository manageable.
 - Scenario inputs and model assumptions should not be interpreted as independently verified forecasts.
