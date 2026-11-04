@@ -1,227 +1,58 @@
-# PLC Model and Calibration
+# Model Reproduction
 
-This directory contains the Python implementation, calibration, and evaluation workflows for the Portland-limestone cement (PLC) diffusion agent-based model.
+Run all commands from the repository root after installing `requirements.txt`.
 
-## `run_plc_simplified.py`
+## PLC — Frozen v1 calibration
 
-**Purpose:** Monthly agent-based simulation of PLC diffusion across the U.S. cement supply chain (2010–2024).
+The selected historical PLC calibration is **trial 194** (seed 42), fitted to 2010–2022 observations. The 2023–2024 period was reserved for evaluation. Training RMSE: **0.0171993**.
 
-**Model:** Represents 100 cement manufacturers and 3,667 network-resolved ready-mix concrete (RMX) facilities. RMX adoption depends on demand pressure, state DOT implementation, local peer adoption, and manufacturer material availability. Manufacturer availability can expand endogenously in response to persistent unmet demand, subject to documented plant-specific evidence.
+```bash
+python3 model/run_plc_simplified.py \
+  --empirical_dir data/plc/01_observed_inputs \
+  --capacity_file data/mfr_capacity_for_model.csv \
+  --evidence_file data/plc/evidence/mfr_plc_evidence_through_2022.csv \
+  --out_dir outputs/examples/plc_frozen_v1 \
+  --seed 42 \
+  --T_A 7 \
+  --kappa 12.105007212733277 \
+  --B0 1.4585673452933934 \
+  --theta_M 0.18142903019803333 \
+  --H_M 10 \
+  --T_M 30
+```
 
-**Inputs:**
-- `rmx_month_demand_exposure.csv` — Monthly RMX demand exposure.
-- `mfr_rmx_pairs.csv` — Manufacturer–RMX supply relationships.
-- `rmx_peer_pairs.csv` — RMX peer relationships.
-- `dot_monthly_state.csv` — State DOT implementation.
-- `mfr_capacity_for_model.csv` — Manufacturer capacities and operating periods.
-- `mfr_plc_evidence_through_2022.csv` — Manufacturer availability evidence.
+Compare `outputs/examples/plc_frozen_v1/national_month_adoption.csv` with the archived `outputs/plc/national_month_adoption.csv`. Selected calibration parameters, curves, and metrics are in `outputs/plc/`. The simulator and retained inputs match the frozen v1 archive by SHA-256; a fresh-environment numerical match has not yet been confirmed.
 
-**Parameters:** `T_A`, `kappa`, `B0`, `theta_M`, `H_M`, `T_M`, and `seed`.
+## LC3 — Four scenarios, ten seeds each
 
-**Outputs:**
-- `national_month_adoption.csv` — Monthly national facility and demand-weighted adoption.
-- `mfr_transition_summary.csv` — Manufacturer availability transitions.
-- `run_specification.csv` — Simulation parameters.
+The archived LC3 simulations cover 2026–2045, using seeds **42–51**. The scenarios differ in DOT implementation: `N0` (none), `N14` (14 states), `NSTAG` (staggered 47 states), and `N47` (47 states in 2029).
 
-**Calibration:** Used in the 2010–2022 PLC calibration, with evaluation over 2023–2024 (Supporting Information, Section S10).
+The multiseed runner uses `T_A=5`, `kappa=8.439534971412707`, `B0=1.6223578864493762`, `theta_M=0.19491661627095874`, `H_M=10`, `T_M=29`, scenario-event protection, and endogenous-manufacturer exclusions `20 21 65`. **These are not the frozen v1 PLC parameters.**
 
-**Reproducibility:** The verified historical implementation uses plant-dated manufacturer availability boundaries without assigning monthly transitions to year-only evidence. Reproduction of selected calibration trial 406 (seed 42) produced exact matches for all 180 monthly national adoption records, manufacturer transition summaries, and simulation parameters.
+Each scenario requires a 2026–2045 `rmx_month_demand_exposure.csv` (approximately 83 MB), which is **not included** in Git. The file must be obtained from the original experiment inputs; its independent generation procedure is not yet documented. Without it, the simulations cannot be rerun from the repository alone.
 
-## `calibrate_plc_locked_2010_2022.py`
+After obtaining that file, set `DEMAND` to its absolute path and run:
 
-**Purpose:** Calibrates the PLC agent-based model against observed U.S. blended cement shipment shares for January 2010–December 2022, reserving 2023–2024 for evaluation.
+```bash
+DEMAND=/absolute/path/to/rmx_month_demand_exposure.csv
 
-**Method:** Optuna Tree-structured Parzen Estimator (TPE) optimization over six parameters (`T_A`, `kappa`, `B0`, `theta_M`, `H_M`, `T_M`). The objective combines adoption-level error (40%), annual-growth error (30%), transition-timing error (20%), and endpoint error (10%).
+for s in N0 N14 NSTAG N47; do
+  INPUT="outputs/examples/lc3_inputs_${s}"
+  mkdir -p "$INPUT"
+  cp data/lc3/shared/*.csv "$INPUT/"
+  cp "data/lc3/$s/dot_monthly_state.csv" "$INPUT/"
+  cp "$DEMAND" "$INPUT/rmx_month_demand_exposure.csv"
 
-**Inputs:** Verified `run_plc_simplified.py`, empirical model inputs, manufacturer capacities and availability evidence, and monthly USGS cement shipment data.
+  python3 model/run_lc3_05c_multiseed.py \
+    --input_dir "$INPUT" \
+    --capacity_file data/mfr_capacity_for_model.csv \
+    --output_root "outputs/examples/lc3_${s}"
+done
+```
 
-**Configuration:** 500 optimization trials; TPE seed 20261009; simulation screening seed 42. Supports resumable optimization and optional five-seed confirmation.
+The already-computed results are available without rerunning simulations:
 
-**Outputs:** `best.json`, `trials.csv`, `calibration_manifest.json`, `selected_training_metrics.json`, `best_training_curves.csv`, and calibration plots. Optional confirmation produces `confirmation_metrics.csv`.
+- `outputs/lc3/<scenario>/lc3_05c_multiseed_summary.csv`
+- `outputs/lc3/<scenario>/lc3_05c_seed_level_results.csv`
 
-**Reference calibration:** Trial 406, selected using the 2010–2022 training objective (Supporting Information, Section S10).
-
-| Parameter | Selected value |
-|---|---:|
-| `T_A` | 5 |
-| `kappa` | 8.439534971412707 |
-| `B0` | 1.6223578864493762 |
-| `theta_M` | 0.19491661627095874 |
-| `H_M` | 10 |
-| `T_M` | 29 |
-
-**Reproducibility:** Records SHA-256 hashes of the simulator and input files. Requires the verified historical simulator implementation; the later year-only manufacturer evidence treatment is not part of the reference calibration.
-
-## Historical PLC Evaluation
-
-**Evaluation period:** January 2023–December 2024.
-
-**Manuscript result:** The corrected E01 evaluation reports a held-out RMSE of **0.051927** (Supporting Information, Section S10).
-
-**Configuration:** Uses the selected trial 406 parameters and simulation seed 42.
-
-**Manufacturer evidence:** The corrected E01 evaluation includes 24 documented availability boundaries, compared with 20 in the historical calibration implementation.
-
-**Reproducibility status:** The corrected E01 manuscript trajectory is preserved as an archived result. Its evaluation calculations can be reproduced from saved outputs. Exact simulation-level reproduction remains under review.
-
-**Interpretation:** The verified calibration run and corrected manuscript evaluation are distinct results. The reported evaluation RMSE of 0.051927 applies to the archived corrected E01 trajectory.
-
-## `simple_abm_build_network.py`
-
-**Purpose:** Constructs the empirical U.S. cement and concrete supply-chain network used by the agent-based model.
-
-**Inputs:**
-- `manufacturers.csv` — Cement manufacturer locations.
-- `readymix_final_for_network.csv` — Ready-mix concrete facility locations.
-- `dots.csv` — State transportation agencies.
-- `demand_inter.csv` — Geographic demand nodes.
-
-**Network rules:**
-- Manufacturer–RMX: Connects manufacturers within 150 miles of each RMX facility. If none are available, uses the nearest manufacturer within 208 miles.
-- RMX–demand: Connects demand nodes to the nearest RMX within 15 miles, with a separately identified nearest-facility fallback.
-- Geographic coverage: 50 U.S. states.
-
-**Outputs:**
-- `nodes.csv` — Network nodes.
-- `edges.csv` — Network relationships, including primary and fallback links.
-
-**Reproducibility:** Network radii and fallback rules are specified through command-line arguments. Network construction does not use observed PLC adoption outcomes.
-
-## `build_plc_empirical_state_holdout.py`
-
-**Purpose:** Constructs the empirical, model-ready inputs for PLC diffusion simulations from the U.S. cement supply-chain network and observed data. Supports observed-demand and projected-demand configurations.
-
-**Inputs:**
-- `data/simple_abm/us/nodes.csv` — Supply-chain network nodes.
-- `data/simple_abm/us/edges.csv` — Supply-chain network relationships.
-- `data/usgs_all_state_type_month.csv` — Monthly USGS cement shipments.
-- `data/county_pop.csv` — County population data for demand allocation.
-- `data/dot_adoption.csv` — State DOT acceptance records.
-- `data/mfr_plc_public_evidence_audit_completed.xlsx` — Manufacturer PLC availability evidence.
-
-**Configuration:** January 2010–December 2024; 50 U.S. states; 20-mile RMX peer radius; 24-month DOT implementation period (`T_G=24`); reference demand `D_ref=1124.5848062887808`.
-
-**Outputs:**
-- `state_month_demand.csv` — Monthly state-level cement demand.
-- `rmx_demand_weights.csv` — RMX demand allocation weights.
-- `rmx_month_demand_exposure.csv` — Monthly RMX demand exposure.
-- `mfr_rmx_pairs.csv` — Manufacturer–RMX supply relationships.
-- `rmx_peer_pairs.csv` — Local RMX peer relationships.
-- `dot_monthly_state.csv` — Monthly DOT implementation.
-- `mfr_plc_evidence_constraints.csv` — Manufacturer availability evidence constraints.
-- Additional network diagnostics and reference specifications.
-
-**Observed-demand inputs:** `data/plc/01_observed_inputs/` contains the reference empirical inputs used in the PLC calibration workflow.
-
-**Projected-demand inputs:** The script supports a demand holdout beginning in January 2023, with a five-year projection horizon. These inputs are generated separately from the observed-demand configuration.
-
-**Reproducibility:** Input construction uses empirical geographic, demand, regulatory, and manufacturer evidence data. The network and behavioral input parameters are explicitly specified. Observed-demand and projected-demand configurations must remain separate to avoid introducing future observed demand into prospective scenarios.
-
-## `plot_plc_temporal_evaluation_corrected.py`
-
-**Purpose:** Generates the manuscript's historical PLC diffusion figure and evaluates simulated adoption against observed U.S. blended cement shipment shares.
-
-**Inputs:**
-- `data/usgs_all_state_type_month.csv` — Observed monthly cement shipments.
-- `outputs/plc_final_2026/03_calibration_2010_2022/best_training_curves.csv` — Calibration reference observations.
-- `outputs/plc_final_2026/18_E01_controlled_corrected/national_month_adoption.csv` — Corrected E01 simulation trajectory.
-
-**Method:** Reconstructs observed national blended cement shares, verifies consistency with the calibration target, and compares observed and simulated adoption over January 2010–December 2024.
-
-**Evaluation:** Calculates RMSE over the 24 held-out months (January 2023–December 2024).
-
-**Outputs:**
-- `Fig1_historical_diffusion.png` — Historical diffusion figure.
-- `Fig1_historical_diffusion.pdf` — Publication-quality figure.
-- `Fig1_historical_diffusion_metrics.csv` — Evaluation metrics.
-
-Outputs are written to `outputs/plc_final_2026/figures_corrected/`.
-
-**Manuscript result:** Corrected E01 evaluation RMSE = 0.051927.
-
-**Reproducibility:** The script regenerates the evaluation calculations and figure from the archived corrected E01 trajectory. Simulation-level reproduction is being reviewed separately.
-
-## PLC Sensitivity and Robustness Analysis
-
-The repository preserves the sensitivity experiments and robustness analyses used to evaluate the PLC diffusion model.
-
-### Experiment outputs
-
-- `07_stochastic_robustness/`: Simulation results across 30 random seeds (42–71).
-- `08_mfr_response_ablation/`: Manufacturer-response ablation experiment.
-- `09_parameter_sensitivity/`: Parameter perturbation experiments (±20%).
-- `10_TA_TM_interaction/`: Joint variation of the RMX adoption response period and manufacturer expansion delay.
-
-These outputs are stored under `outputs/plc_final_2026/`.
-
-The file `plc_sensitivity_manifest.csv` records experiment identifiers, output paths, file sizes, and SHA-256 hashes.
-
-### Corrected robustness analyses
-
-Additional results are preserved under `outputs/plc_final_2026/robustness/`:
-
-- `PLC03_multiseed/`: Stochastic robustness and peer-effect comparisons.
-- `PLC04_parameter_sensitivity_corrected/`: Corrected parameter sensitivity results.
-- `PLC05_timescale_interaction_corrected/`: Corrected interaction analysis for the RMX adoption response period and manufacturer expansion delay.
-
-### Analysis and plotting scripts
-
-- `package_plc_sensitivity_results.py`: Packages sensitivity experiment outputs and provenance information.
-- `run_plc_behavioral_coefficient_sensitivity.py`: Runs behavioral coefficient sensitivity experiments.
-- `plots/plot_plc_sensitivity_envelopes.py`: Generates sensitivity envelopes.
-- `plots/plot_plc_structural_sensitivity.py`: Generates structural sensitivity visualizations.
-- `plots/plot_plc03_stochastic_robustness.py`: Visualizes PLC03 stochastic robustness results.
-- `plots/plot_plc04_plc05_sensitivity_corrected.py`: Visualizes corrected PLC04 and PLC05 sensitivity results.
-
-### Reproducibility
-
-Saved experiment outputs support retrospective analysis without rerunning the simulations. The original experiment results and corrected robustness analyses are retained separately to preserve their provenance.
-
-The scripts and saved outputs have been transferred; their execution dependencies and portability within the public repository have not yet been fully verified.
-
-## Manuscript Figures 3 and 4
-
-### Figure 3: Historical PLC mechanisms
-
-Script: `model/plots/plot_plc_mechanisms_lc3_bridge.py`
-
-Compares regulatory readiness, RMX behavioral response, local material
-access, and demand-weighted adoption with and without endogenous
-manufacturer response.
-
-### Figure 4: Prospective LC3 regulatory scenarios
-
-Script: `model/plots/build_lc3_national_figure4.py`
-
-Four hypothetical DOT implementation schedules are evaluated over
-2026–2045 using ten matched seeds (42–51).
-
-Replot saved results:
-
-    python model/plots/build_lc3_national_figure4.py --plot
-
-Run simulations and regenerate the figure:
-
-    python model/plots/build_lc3_national_figure4.py
-
-December 2045 median national demand-weighted LC3 adoption, using a
-trailing 12-month measure:
-
-- No DOT implementation: 1.1%.
-- Limited implementation (14 states): 51.1%.
-- Staggered implementation (47 states): 68.3%.
-- Implementation in 47 states in 2029: 71.4%.
-
-Corresponding December 2045 manufacturer availability counts are
-10, 14, 20, and 20, respectively.
-
-The scenarios retain identical prescribed manufacturer introductions
-and fixed physical manufacturing capacities. Endogenous manufacturer
-response changes material availability, not production capacity.
-
-The manufacturer response uses a calibrated 10-month demand-pressure
-accumulation window (H_M) and a 29-month material-introduction delay
-(T_M). These are calibrated model parameters, not independently
-measured industrial durations.
-
-The LC3 scenarios are illustrative conditional simulations, not forecasts.
+The LC3 scenarios are conditional simulations, not forecasts.

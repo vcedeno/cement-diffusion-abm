@@ -1,0 +1,24 @@
+{
+  "trial": 194,
+  "objective": 0.014587343614496345,
+  "params": {
+    "T_A": 7,
+    "kappa": 12.105007212733277,
+    "B0": 1.4585673452933934,
+    "theta_M": 0.18142903019803333,
+    "H_M": 10,
+    "T_M": 30
+  },
+  "metrics": {
+    "E_endpoint": 0.0009874321241998636,
+    "E_growth": 0.006538559638422771,
+    "E_level": 0.029581470165262712,
+    "E_transition": 0.003472222222222222,
+    "crossing_10_months": 1,
+    "crossing_20_months": 0,
+    "endpoint_error": -0.003142343272463821,
+    "objective": 0.014587343614496345,
+    "rmse_full": 0.017199264567202492,
+    "run_dir": "/Users/vanessacedeno/Desktop/ABM-cement/ABM/outputs/plc_final_2026/04_frozen_v1_calibration/runs/trial_00194"
+  }
+}

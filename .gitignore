@@ -9,3 +9,6 @@ __pycache__/
 
 # Temporary files
 *.log
+
+# Large LC3 demand inputs
+outputs/lc3_reference_2026_2045/inputs_lc3_*/rmx_month_demand_exposure.csv

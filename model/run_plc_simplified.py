@@ -4,9 +4,8 @@
 Uses locked Stage-1 empirical state. No calibration is performed here.
 Reference behavior:
   B_i = d_i + phi_s + p_i
-  r_i = logistic[4 (B_i - 1)]
-  lambda_A = 1-exp(-1/T_A), T_A=6 months
-  h_i = x_i lambda_A r_i
+  r_i = logistic[kappa * (B_i - B0)]
+  lambda_A = 1 - exp(-1/T_A)
   persistent Bernoulli RMX adoption
   Q_i = (1-a_i(t-1))(1-x_i) lambda_A r_i D_i
   Q_j = equal allocation of Q_i over operating potential MFRs
@@ -108,6 +107,18 @@ def main():
     )
     ap.add_argument("--kappa", type=float, default=4.0)
     ap.add_argument("--B0", type=float, default=1.5)
+    ap.add_argument(
+        "--disable_peer_effect",
+        action="store_true",
+        help="Exclude local peer exposure from RMX behavioral pressure only."
+    )
+    ap.add_argument(
+        "--withhold_future_mfr_evidence",
+        action="store_true",
+        help="Preserve initial manufacturer availability but withhold future evidence-based transitions."
+    )
+    ap.add_argument("--rng_mode", choices=["legacy", "common"], default="legacy",
+                    help="legacy reproduces Optuna RNG; common fixes RMX-month draws across scenarios.")
     args = ap.parse_args()
 
     empirical_dir = Path(args.empirical_dir)
@@ -129,7 +140,12 @@ def main():
         raise RuntimeError("Supply pairs contain MFR IDs absent from capacity file.")
 
     lambda_A = 1.0 - np.exp(-1.0 / args.T_A)
+    # Legacy reproduces calibration RNG; common preassigns one draw per RMX-month.
     rng = np.random.default_rng(args.seed)
+    adoption_draws = (
+        {ym: dict(zip(rmx_ids, rng.random(len(rmx_ids)))) for ym in months}
+        if args.rng_mode == "common" else None
+    )
 
     # Fast structural maps.
     mfrs_by_rmx = pairs.groupby("rmx_src_id")["mfr_src_id"].apply(list).to_dict()
@@ -166,6 +182,32 @@ def main():
         dated["supported_month_if_dated"].astype(str).str[:7],
     ))
 
+    year_only = evidence[
+        evidence["date_evidence_class"].eq("year_only")
+        & evidence["model_evidence_class"].eq(
+            "plant_availability_without_monthly_transition_date"
+        )
+    ].copy()
+
+    for _, row in year_only.iterrows():
+        year = str(row["supported_date"]).strip()
+
+        if not (len(year) == 4 and year.isdigit()):
+            raise ValueError(
+                f"Invalid year-only evidence for manufacturer "
+                f"{row['mfr_src_id']}: {year!r}"
+            )
+
+        j = row["mfr_src_id"]
+        boundary = f"{year}-12"
+
+        if j in evidence_month:
+            raise ValueError(
+                f"Duplicate evidence boundary for manufacturer {j}"
+            )
+
+        evidence_month[j] = boundary
+
     # Persistent states.
     a = {i: 0 for i in rmx_ids}
     q_endo = {j: 0 for j in mfr_ids}
@@ -180,6 +222,19 @@ def main():
     print(f"lambda_A={lambda_A:.6f}  theta_M={args.theta_M:.3f}  H_M={args.H_M}  T_M={args.T_M}  seed={args.seed}")
     print(f"dated evidence boundaries={len(evidence_month)}")
     print(f"endogenous MFR response={'OFF' if args.disable_endogenous_mfr else 'ON'}")
+
+
+    # Preserve the complete historical evidence for diagnostic reporting.
+    all_evidence_month = evidence_month.copy()
+
+    if args.withhold_future_mfr_evidence:
+        initial_month = months[0]
+
+        evidence_month = {
+            j: boundary
+            for j, boundary in all_evidence_month.items()
+            if boundary <= initial_month
+        }
 
     for ym in months:
         dm = demand[demand["yyyy_mm"].astype(str).eq(ym)].set_index("rmx_src_id")
@@ -224,11 +279,11 @@ def main():
             D_i = float(row["D_i"])
             d_i = float(row["d_i"])
             phi = float(phi_map.get(state, 0.0))
-            B = d_i + phi + p[i]
+            B = d_i + phi + (0.0 if args.disable_peer_effect else p[i])
             r = float(logistic(args.kappa*(B-args.B0)))
             h = float(np.clip(x[i]*lambda_A*r, 0.0, 1.0))
             adopted_now = 0
-            if a[i] == 0 and rng.random() < h:
+            if a[i] == 0 and (rng.random() if adoption_draws is None else adoption_draws[ym][i]) < h:
                 a[i] = 1
                 adopted_now = 1
 
@@ -285,6 +340,7 @@ def main():
                 "u_j":uj[j],"ubar_j":ubar[j],"trigger_month":trigger_month[j],
                 "scheduled_availability_month":scheduled_month[j],
                 "evidence_boundary_month":evidence_month.get(j),
+                "historical_evidence_boundary_month": all_evidence_month.get(j),
             })
 
     rmx_out = pd.DataFrame(rmx_rows)
@@ -318,19 +374,23 @@ def main():
     trans["evidence_boundary_month"] = trans["mfr_src_id"].map(evidence_month)
     trans["trigger_month"] = trans["mfr_src_id"].map(trigger_month)
     trans["scheduled_availability_month"] = trans["mfr_src_id"].map(scheduled_month)
+    trans["historical_evidence_boundary_month"] = (trans["mfr_src_id"].map(all_evidence_month))
     trans.to_csv(out_dir / "mfr_transition_summary.csv", index=False)
 
     pd.DataFrame([
         {"parameter":"seed","value":args.seed},
+        {"parameter":"rng_mode","value":args.rng_mode},
         {"parameter":"T_A","value":args.T_A},
         {"parameter":"lambda_A","value":lambda_A},
-        {"parameter":"behavioral_pressure","value":"d_i + phi_s + p_i"},
+        {"parameter":"behavioral_pressure","value":"d_i + phi_s" if args.disable_peer_effect else "d_i + phi_s + p_i"},
+        {"parameter":"disable_peer_effect","value":int(args.disable_peer_effect)},
         {"parameter":"disable_endogenous_mfr","value":int(args.disable_endogenous_mfr)},
         {"parameter":"kappa","value":args.kappa},
         {"parameter":"B0","value":args.B0},
         {"parameter":"theta_M","value":args.theta_M},
         {"parameter":"H_M","value":args.H_M},
         {"parameter":"T_M","value":args.T_M},
+        {"parameter": "withhold_future_mfr_evidence","value":int(args.withhold_future_mfr_evidence)},
     ]).to_csv(out_dir / "run_specification.csv", index=False)
 
     print("\n[FINAL]")

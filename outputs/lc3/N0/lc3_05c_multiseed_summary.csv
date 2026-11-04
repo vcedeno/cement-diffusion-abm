@@ -1,0 +1,8 @@
+metric,n_reached_or_valid,n_seeds,median,min,max
+months_to_5pct,0,10,,,
+months_to_10pct,0,10,,,
+months_to_25pct,0,10,,,
+months_to_50pct,0,10,,,
+A_2045_month,10,10,0.012019080647667699,0.0054562150217813,0.0315637243673964
+A_2045_12,10,10,0.011272884059941733,0.004676299605277064,0.028146892954279697
+endogenous_mfr_count,10,10,0.0,0.0,0.0

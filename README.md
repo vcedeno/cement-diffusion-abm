@@ -1,175 +1,79 @@
 # Cement Diffusion ABM
 
-## Description:
-An empirically grounded agent-based model (ABM) for studying the diffusion of lower-carbon cement technologies across the U.S. cement and concrete supply chain, including calibration, sensitivity analysis, and prospective LC3 scenarios.
+Agent-based simulations of lower-carbon cement diffusion in the United States: historical Portland-limestone cement (PLC, 2010–2024) and prospective limestone calcined clay cement (LC3, 2026–2045).
 
-## Topics: 
-agent-based-modeling, decarbonization, python, simulation, cement, technology-diffusion, climate-tech
+## Setup
 
-The repository supports two applications:
-
-1. **Portland-limestone cement (PLC):** Historical diffusion analysis, calibration, evaluation, and sensitivity experiments for 2010–2024.
-2. **Limestone calcined clay cement (LC3):** Prospective diffusion scenarios for 2026–2045, examining manufacturer availability, regulatory acceptance, demand exposure, and local peer effects.
-
-The model represents cement manufacturers, ready-mix concrete facilities (RMX), state departments of transportation (DOTs), and geographically distributed demand.
-
-## Repository structure
-
-```text
-cement-diffusion-abm/
-├── README.md
-├── requirements.txt
-├── data/
-│   ├── README.md
-│   ├── plc/
-│   │   ├── 01_observed_inputs/
-│   │   └── evidence/
-│   ├── simple_abm/
-│   │   └── us/
-│   └── *.csv
-├── model/
-│   ├── README.md
-│   ├── run_plc_simplified.py
-│   ├── run_lc3_announced_projects_05c.py
-│   ├── run_lc3_05c_multiseed.py
-│   ├── calibrate_plc_locked_2010_2022.py
-│   ├── build_plc_empirical_state_holdout.py
-│   ├── simple_abm_build_network.py
-│   └── plots/
-└── outputs/
-    ├── plc_final_2026/
-    └── lc3_reference_2026_2045/
-```
-
-### `data/`
-
-Contains empirical datasets, network inputs, manufacturer capacities, regulatory evidence, and prepared model inputs.
-
-- `data/simple_abm/us/`: Supply-chain network nodes and edges.
-- `data/plc/01_observed_inputs/`: Prepared PLC empirical inputs, including monthly RMX demand exposure, supply relationships, peer networks, and DOT acceptance.
-- `data/plc/evidence/`: Historical manufacturer PLC availability evidence.
-- `data/mfr_capacity_for_model.csv`: Manufacturer capacity information.
-
-See `data/README.md` for individual dataset descriptions.
-
-### `model/`
-
-Contains the agent-based simulation, input preparation, calibration, sensitivity analysis, and plotting scripts.
-
-- `run_plc_simplified.py`: Historical PLC diffusion simulator.
-- `run_lc3_announced_projects_05c.py`: Prospective LC3 simulator with scenario-event protection.
-- `run_lc3_05c_multiseed.py`: LC3 stochastic robustness experiments.
-- `calibrate_plc_locked_2010_2022.py`: PLC parameter calibration.
-- `build_plc_empirical_state_holdout.py`: Preparation of PLC empirical inputs.
-- `simple_abm_build_network.py`: Construction of supply-chain relationships.
-- `plots/`: Visualization scripts for diffusion, sensitivity, and robustness.
-
-See `model/README.md` for additional details.
-
-### `outputs/plc_final_2026/`
-
-Contains the selected PLC calibration, corrected historical evaluation, and sensitivity experiments.
-
-The saved corrected evaluation and the historically reconstructed calibration simulator are retained separately because exact reproduction of the corrected evaluation trajectory from the currently available simulator has not been established.
-
-### `outputs/lc3_reference_2026_2045/`
-
-Contains prepared LC3 scenario inputs, reference simulation outputs, and multiseed results.
-
-The LC3 05C outputs include national and state adoption trajectories and manufacturer-level results. Large RMX-level monthly simulation outputs are excluded from the public repository.
-
-## Installation
-
-Python 3.10 or newer is recommended.
-
-Clone the repository and enter its root directory:
+From the repository root, with Python 3.10+:
 
 ```bash
-git clone <repository-url>
-cd cement-diffusion-abm
-
 python3 -m venv .venv
 source .venv/bin/activate
-
 pip install -r requirements.txt
 ```
 
-All commands below should be executed from the repository root.
+## PLC: frozen v1 calibration
 
-## Example 1: Historical PLC diffusion
+The selected PLC calibration is **trial 194**, fitted to January 2010–December 2022 observations (seed 42). January 2023–December 2024 was held out. The training RMSE is **0.0171993**; this is not a held-out RMSE. The empirical target is U.S. blended cement shipment share, not a PLC-only series.
 
-Run the historical PLC model for January 2010–December 2024 using the selected calibration parameters.
+Run the selected simulation:
 
 ```bash
 python3 model/run_plc_simplified.py \
   --empirical_dir data/plc/01_observed_inputs \
   --capacity_file data/mfr_capacity_for_model.csv \
   --evidence_file data/plc/evidence/mfr_plc_evidence_through_2022.csv \
-  --out_dir outputs/examples/plc_reference \
+  --out_dir outputs/examples/plc_frozen_v1 \
   --seed 42 \
-  --T_A 5 \
-  --kappa 8.439534971412707 \
-  --B0 1.6223578864493762 \
-  --theta_M 0.19491661627095874 \
+  --T_A 7 \
+  --kappa 12.105007212733277 \
+  --B0 1.4585673452933934 \
+  --theta_M 0.18142903019803333 \
   --H_M 10 \
-  --T_M 29
+  --T_M 30
 ```
 
-This example uses the selected parameters from the PLC calibration conducted with observations through December 2022.
+Selected archived results are in `outputs/plc/`: `best.json`, `best_training_curves.csv`, `national_month_adoption.csv`, `selected_training_metrics.json`, and `calibrated_curves.png`. The simulator and retained PLC inputs were hash-checked against the frozen archive; a clean-environment numerical rerun has not been verified.
 
-The simulator writes national and state adoption trajectories, manufacturer transitions, and run specifications to:
+## LC3: four prospective scenarios
 
-```text
-outputs/examples/plc_reference/
-```
+The final scenarios use ten matched seeds (42–51), January 2026–December 2045, and the **archived LC3 parameters** (`T_A=5`, `kappa=8.439534971412707`, `B0=1.6223578864493762`, `theta_M=0.19491661627095874`, `H_M=10`, `T_M=29`). These differ from the frozen PLC calibration.
 
-The historical simulator reproduces the archived selected calibration trajectory. The corrected E01 manuscript evaluation is preserved separately under `outputs/plc_final_2026/18_E01_controlled_corrected/`.
+| Scenario | DOT implementation | December 2045 median adoption* | Manufacturer availability |
+|---|---|---:|---:|
+| `N0` | None | 1.1% | 10 |
+| `N14` | 14 states | 51.1% | 14 |
+| `NSTAG` | 47 states, staggered | 68.3% | 20 |
+| `N47` | 47 states in 2029 | 71.4% | 20 |
 
-## Example 2: Prospective LC3 diffusion
+*National demand-weighted adoption, trailing 12 months. These are conditional simulations, **not forecasts**.
 
-Run the LC3 05C reference scenario for January 2026–December 2045.
+Archived multiseed summaries and seed-level results are in `outputs/lc3/<SCENARIO>/` as `lc3_05c_multiseed_summary.csv` and `lc3_05c_seed_level_results.csv`.
 
-This scenario includes dated manufacturer deployment events, endogenous manufacturer response, local peer effects, and protection of scenario-event manufacturers from premature endogenous activation.
+### Run an LC3 scenario
+
+The runner requires five CSV files in one input directory: the three files under `data/lc3/shared/`, the scenario's `dot_monthly_state.csv`, and `rmx_month_demand_exposure.csv` for 2026–2045.
+
+**Required external input:** The approximately 83 MB demand-exposure CSV is excluded from Git. On the original working machine, it is stored at `outputs/lc3_reference_2026_2045/inputs_lc3_<SCENARIO>/rmx_month_demand_exposure.csv`. This path is local and is **not** included in a fresh clone. Without that file, the LC3 simulations cannot be rerun from the public repository alone.
+
+For a local copy containing that file, run from the repository root:
 
 ```bash
-python3 model/run_lc3_announced_projects_05c.py \
-  --empirical_dir outputs/lc3_reference_2026_2045/inputs_lc3_05 \
+SCENARIO=N47  # N0, N14, NSTAG, or N47
+INPUT_DIR="outputs/examples/lc3_inputs_${SCENARIO}"
+mkdir -p "$INPUT_DIR"
+cp data/lc3/shared/*.csv "$INPUT_DIR/"
+cp "data/lc3/${SCENARIO}/dot_monthly_state.csv" "$INPUT_DIR/"
+cp "outputs/lc3_reference_2026_2045/inputs_lc3_${SCENARIO}/rmx_month_demand_exposure.csv" "$INPUT_DIR/"
+python3 model/run_lc3_05c_multiseed.py \
+  --input_dir "$INPUT_DIR" \
   --capacity_file data/mfr_capacity_for_model.csv \
-  --evidence_file outputs/lc3_reference_2026_2045/inputs_lc3_05/lc3_05_coordinated_deployment_events.csv \
-  --out_dir outputs/examples/lc3_reference \
-  --seed 42 \
-  --protect_scenario_events \
-  --exclude_endogenous_mfr 20 21 65 \
-  --T_A 5 \
-  --kappa 8.439534971412707 \
-  --B0 1.6223578864493762 \
-  --theta_M 0.19491661627095874 \
-  --H_M 10 \
-  --T_M 29
+  --output_root "outputs/examples/lc3_${SCENARIO}"
 ```
 
-The scenario uses the selected PLC behavioral and manufacturer-response parameters without recalibrating them to LC3 outcomes.
+The LC3 runner uses the archived scenario configuration, including protection of prescribed manufacturer events and exclusion of manufacturers 20, 21, and 65 from endogenous activation. Manufacturer capacity is held fixed; endogenous response changes material availability.
 
-The simulation writes its results to:
+## Documentation
 
-```text
-outputs/examples/lc3_reference/
-```
-
-The archived LC3 05C reference and multiseed results are available under `outputs/lc3_reference_2026_2045/`.
-
-## Reproducibility notes
-
-- PLC is the historical calibration and evaluation case.
-- LC3 is a prospective scenario application, not an empirical validation against observed LC3 diffusion.
-- The selected PLC calibration uses 2010–2022 observations; 2023–2024 is the evaluation period.
-- The corrected PLC E01 evaluation RMSE is 0.051927 for January 2023–December 2024.
-- The corrected E01 evaluation is preserved as an archived manuscript result. Its evaluation metrics and figures can be regenerated from the saved trajectory; exact simulation-level reproduction remains under review.
-- The archived sensitivity experiments and LC3 multiseed outputs can be analyzed without rerunning their simulations.
-- Some large agent-level outputs are intentionally excluded to keep the repository manageable.
-- Scenario inputs and model assumptions should not be interpreted as independently verified forecasts.
-
-## Additional documentation
-
-- `data/README.md`: Dataset descriptions and provenance.
-- `model/README.md`: Model scripts, calibration, and sensitivity analyses.
+- [`model/README.md`](model/README.md): Model scripts and simulation details.
+- [`data/README.md`](data/README.md): Input data and provenance.
