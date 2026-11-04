@@ -33,7 +33,7 @@ python3 model/run_plc_simplified.py \
   --T_M 30
 ```
 
-Selected archived results are in `outputs/plc/`: `best.json`, `best_training_curves.csv`, `national_month_adoption.csv`, `selected_training_metrics.json`, and `calibrated_curves.png`. The simulator and retained PLC inputs were hash-checked against the frozen archive; a clean-environment numerical rerun has not been verified.
+Selected archived results are in `outputs/plc/`: `best.json`, `best_training_curves.csv`, `national_month_adoption.csv`, `selected_training_metrics.json`, and `calibrated_curves.png`. The simulator and retained PLC inputs were verified against the frozen archive using SHA-256 checksums.
 
 ## LC3: four prospective scenarios
 
