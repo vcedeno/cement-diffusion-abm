@@ -12,3 +12,7 @@ __pycache__/
 
 # Large LC3 demand inputs
 outputs/lc3_reference_2026_2045/inputs_lc3_*/rmx_month_demand_exposure.csv
+
+# Archived experiment outputs
+/outputs/plc_final_2026/
+/outputs/lc3_reference_2026_2045/
