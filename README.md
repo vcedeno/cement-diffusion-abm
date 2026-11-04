@@ -52,19 +52,20 @@ Archived multiseed summaries and seed-level results are in `outputs/lc3/<SCENARI
 
 ### Run an LC3 scenario
 
-The runner requires five CSV files in one input directory: the three files under `data/lc3/shared/`, the scenario's `dot_monthly_state.csv`, and `rmx_month_demand_exposure.csv` for 2026–2045.
+The runner requires five CSV files in one input directory: four shared inputs under `data/lc3/shared/` and the scenario-specific `dot_monthly_state.csv`.
 
-**Required external input:** The approximately 83 MB demand-exposure CSV is excluded from Git. On the original working machine, it is stored at `outputs/lc3_reference_2026_2045/inputs_lc3_<SCENARIO>/rmx_month_demand_exposure.csv`. This path is local and is **not** included in a fresh clone. Without that file, the LC3 simulations cannot be rerun from the public repository alone.
+All four LC3 scenarios use the same demand-exposure input, included in the repository at `data/lc3/shared/rmx_month_demand_exposure.csv`.
 
-For a local copy containing that file, run from the repository root:
+Run from the repository root:
 
 ```bash
 SCENARIO=N47  # N0, N14, NSTAG, or N47
 INPUT_DIR="outputs/examples/lc3_inputs_${SCENARIO}"
+
 mkdir -p "$INPUT_DIR"
 cp data/lc3/shared/*.csv "$INPUT_DIR/"
 cp "data/lc3/${SCENARIO}/dot_monthly_state.csv" "$INPUT_DIR/"
-cp "outputs/lc3_reference_2026_2045/inputs_lc3_${SCENARIO}/rmx_month_demand_exposure.csv" "$INPUT_DIR/"
+
 python3 model/run_lc3_05c_multiseed.py \
   --input_dir "$INPUT_DIR" \
   --capacity_file data/mfr_capacity_for_model.csv \
