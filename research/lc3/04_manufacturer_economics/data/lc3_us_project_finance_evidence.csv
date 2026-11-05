@@ -1,0 +1,2 @@
+record_id,company,location,announcement,federal_share_usd_million,share_qualifier,total_project_capex_usd_million,status,source_url,interpretation
+DOE_RCC_VA,Roanoke Cement Company,"Troutville, Virginia",DOE awarded calcined clay production for LC3 demonstration,61.7,Up to,Not established from cited DOE summary,Awarded project per DOE page; completion not verified,https://www.energy.gov/cmei/oced/industrial-demonstrations-program-selected-and-awarded-projects-cement-and-concrete,Federal cost share is not manufacturer CAPEX; do not use as investment cost
