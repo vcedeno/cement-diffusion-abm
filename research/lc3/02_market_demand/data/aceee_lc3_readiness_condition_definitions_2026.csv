@@ -1,0 +1,9 @@
+condition_id,category,condition,score_values,coverage,publication_date,source_url
+1,supply_chain,raw_material_availability,0;0.5;1,50 US states,2026-10,https://www.aceee.org/accelerating-adoption-limestone-calcined-clay-cement/
+2,supply_chain,product_availability,0;0.5;1,50 US states,2026-10,https://www.aceee.org/accelerating-adoption-limestone-calcined-clay-cement/
+3,supply_chain,skilled_workforce,0;0.5;1,50 US states,2026-10,https://www.aceee.org/accelerating-adoption-limestone-calcined-clay-cement/
+4,technical,evaluation_by_state_dot,0;0.5;1,50 US states,2026-10,https://www.aceee.org/accelerating-adoption-limestone-calcined-clay-cement/
+5,technical,specifications_by_state_dot,0;0.5;1,50 US states,2026-10,https://www.aceee.org/accelerating-adoption-limestone-calcined-clay-cement/
+6,technical,pilot_or_demonstration_projects,0;0.5;1,50 US states,2026-10,https://www.aceee.org/accelerating-adoption-limestone-calcined-clay-cement/
+7,policy,supportive_policy,0;0.5;1,50 US states,2026-10,https://www.aceee.org/accelerating-adoption-limestone-calcined-clay-cement/
+8,policy,financial_incentives,0;0.5;1,50 US states,2026-10,https://www.aceee.org/accelerating-adoption-limestone-calcined-clay-cement/

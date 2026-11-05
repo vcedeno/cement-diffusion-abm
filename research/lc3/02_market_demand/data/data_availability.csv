@@ -1,0 +1,7 @@
+dataset,availability,interpretation,source_url
+USGS national annual cement shipments,included,All cement including exports; not LC3 demand,https://www.usgs.gov/centers/national-minerals-information-center/cement-statistics-and-information
+USGS state-level cement shipments,not included,Requires extraction and checking from monthly MIS; no values invented,https://www.usgs.gov/centers/national-minerals-information-center/cement-statistics-and-information
+ACEEE 2026 eight condition definitions,included,"Readiness framework, not demand",https://www.aceee.org/accelerating-adoption-limestone-calcined-clay-cement/
+ACEEE 2026 50-state individual condition scores,not included,Interactive ArcGIS map scores not independently extracted,https://www.aceee.org/accelerating-adoption-limestone-calcined-clay-cement/
+Observed national LC3 sales / tonnage,not found,No verified LC3-specific national series in searched public sources,https://www.usgs.gov/centers/national-minerals-information-center/cement-statistics-and-information
+LC3 field trial pour descriptions,included,"Six LC3-containing pours, two Type IL comparators; no cement tonnage",https://nrmcc.com/lc3-demonstration

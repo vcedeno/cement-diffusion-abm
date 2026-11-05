@@ -1,0 +1,8 @@
+year,shipments_thousand_metric_tons,status,source,source_url,product_scope
+2019,102823,reported,USGS MCS 2024,https://pubs.usgs.gov/periodicals/mcs2024/mcs2024-cement.pdf,"All cement shipped to final customers, including exports; NOT LC3"
+2020,104580,reported,USGS MCS 2025,https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-cement.pdf,"All cement shipped to final customers, including exports; NOT LC3"
+2021,108969,reported,USGS MCS 2026,https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-cement.pdf,"All cement shipped to final customers, including exports; NOT LC3"
+2022,111092,reported,USGS MCS 2026,https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-cement.pdf,"All cement shipped to final customers, including exports; NOT LC3"
+2023,110290,reported,USGS MCS 2026,https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-cement.pdf,"All cement shipped to final customers, including exports; NOT LC3"
+2024,100000,estimated,USGS MCS 2026,https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-cement.pdf,"All cement shipped to final customers, including exports; NOT LC3"
+2025,100000,estimated,USGS MCS 2026,https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-cement.pdf,"All cement shipped to final customers, including exports; NOT LC3"

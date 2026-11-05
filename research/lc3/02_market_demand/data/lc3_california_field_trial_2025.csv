@@ -1,0 +1,9 @@
+pour_number,date,city,state,application,mix_label,contains_lc3,trial_type,lc3_cement_tonnage,source_url
+1,2025-06-07,Santa Clarita,CA,tilt_up_wall,LC3 + slag,yes,demonstration,,https://nrmcc.com/lc3-demonstration
+2,2025-06-07,Santa Clarita,CA,slab_on_grade,LC3 + slag,yes,demonstration,,https://nrmcc.com/lc3-demonstration
+3,2025-06-07,Santa Clarita,CA,sidewalk,LC3 + slag,yes,demonstration,,https://nrmcc.com/lc3-demonstration
+4,2025-06-07,Santa Clarita,CA,tilt_up_wall,LC3,yes,demonstration,,https://nrmcc.com/lc3-demonstration
+5,2025-06-07,Santa Clarita,CA,slab_on_grade,LC3,yes,demonstration,,https://nrmcc.com/lc3-demonstration
+6,2025-06-07,Santa Clarita,CA,sidewalk,LC3,yes,demonstration,,https://nrmcc.com/lc3-demonstration
+7,2025-06-07,Santa Clarita,CA,tilt_up_wall,Type IL,no,demonstration,,https://nrmcc.com/lc3-demonstration
+8,2025-06-07,Santa Clarita,CA,slab_on_grade,Type IL,no,demonstration,,https://nrmcc.com/lc3-demonstration
