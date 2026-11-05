@@ -1,0 +1,10 @@
+module,evidence_gap_or_limitation,required_interpretation
+01,Scheduled conversion dates must not be relabeled as actual operational availability.,Interpret date_interpretation and limitation per plant.
+02,USGS blended category is not a PLC-specific adoption measure.,Use descriptive shipments only; no PLC market-share inference.
+03,First acceptance dates are not purchase/adoption dates.,Keep acceptance as an enabling condition.
+04,Economic evidence is sparse and not a census of retrofit costs.,Avoid national parameter estimates.
+05,Some RMX evidence concerns low-carbon concrete generally.,Retain plc_specific field in source detail.
+06,DOT decisions are heterogeneous; documented factors are not causal coefficients.,Do not infer universal motivation.
+07,Several external signals are not reverified and some are broader than PLC.,Preserve verification_status and source-specific limits.
+ALL,Repeated source URLs and cross-module observations are not independent corroboration.,Consult source_reuse_audit.csv before counting supporting sources.
+ALL,USGS annual totals sum rows as supplied; missingness and historical category comparability are not audited.,Do not infer complete national coverage from aggregates.

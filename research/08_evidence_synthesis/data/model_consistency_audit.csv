@@ -1,0 +1,9 @@
+mechanism,implementation_finding,status,code_anchor
+Technical readiness,No separate technical-readiness state in runner,verified absent in reviewed runner,full runner; no independent technical readiness variable
+DOT acceptance gate,"phi_s additive, not hard gate",correction required,"load_inputs lines 49, 57; main B=d_i+phi_s+p_i"
+Manufacturer availability,q_j evidence boundary or endogenous; operating constraint; x_i fraction,verified with qualifications,evidence processing; monthly q and x loops
+RMX adoption and qualification,persistent Bernoulli; h=x*lambda_A*r; logistic readiness,verified,lambda_A and RMX adoption loop
+Demand exposure,D_i and d_i are loaded; allocation not verified,upstream unverified,load_inputs and monthly demand lookup
+RMX peer exposure,mean prior-month peer states; radius upstream unverified,upstream unverified,peers_by_rmx; p_i loop
+Manufacturer demand response,"Q, capacity normalization, rolling H_M mean, delayed trigger",verified,Q_i; Qj; u_history; scheduled_month
+External policy and procurement signals,no explicit standalone policy-event input,verified absent in reviewed runner,load_inputs; B expression
