@@ -1,0 +1,23 @@
+{
+  "search_membership_rows": 3263,
+  "unique_openalex_works": 2708,
+  "search_group_counts": {
+    "low_carbon_concrete": 1187,
+    "LC3_strict": 881,
+    "PLC_expanded": 622,
+    "PLC_strict": 573
+  },
+  "title_signal_unique_works": {
+    "title_plc": 238,
+    "title_lc3": 630,
+    "title_broad": 315
+  },
+  "unique_works_needing_abstract_review": 1534,
+  "abstracts_present_in_input": false,
+  "limitations": [
+    "Title-only triage, not relevance screening",
+    "OpenAlex search retrieval is not an exhaustive bibliometric census",
+    "Categories overlap and search strategies differ",
+    "2025 indexing may be incomplete"
+  ]
+}

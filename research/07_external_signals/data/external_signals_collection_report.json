@@ -1,0 +1,18 @@
+{
+  "events": 32,
+  "new_primary_source_verified_this_pass": 3,
+  "category_counts": {
+    "04_market_demand_procurement": 8,
+    "05_federal_policy_incentives": 8,
+    "03_industry_manufacturing": 7,
+    "02_standards_regulation": 5,
+    "01_scientific_technical_evidence": 4
+  },
+  "limitations": [
+    "Not an exhaustive historical search",
+    "Earlier records marked previously_recorded_not_reverified_this_pass were not independently reverified",
+    "OpenAlex title triage not equivalent to relevance-screened publication counts",
+    "Industry EPD sample is not national PLC production",
+    "Module 01\u201306 cross-check not complete"
+  ]
+}
