@@ -140,3 +140,61 @@ The three manuscript figures are included in `figures/`.
 
 Generated simulation outputs are written under `outputs/` and excluded
 from version control. They can be regenerated using the commands above.
+
+## Data provenance and preprocessing
+
+This study uses frozen, model-ready empirical inputs. The upstream data
+preparation workflow is maintained in the parent repository.
+
+### Geographic supply-chain network
+
+The geographic network is constructed using:
+
+- `../model/simple_abm_build_network.py`
+
+This script builds manufacturer–RMX, RMX–demand, and state DOT relationships
+from georeferenced manufacturer, ready-mix, demand, and DOT datasets.
+
+Manufacturer–RMX links use a 150-mile primary radius and a bounded
+nearest-manufacturer fallback of 208 miles.
+
+The resulting network is stored in:
+
+- `../data/simple_abm/us/nodes.csv`
+- `../data/simple_abm/us/edges.csv`
+
+### Historical PLC empirical inputs
+
+The empirical input-construction workflow is implemented in:
+
+- `../model/build_plc_empirical_state_holdout.py`
+
+It uses the geographic network, USGS shipment data, county population,
+DOT acceptance records, and manufacturer PLC evidence to construct
+model-ready inputs, including:
+
+- Manufacturer–RMX supply relationships.
+- RMX peer relationships within 20 miles.
+- Monthly state and RMX demand exposure.
+- Monthly state DOT acceptance variables.
+- Manufacturer PLC evidence constraints.
+
+The original data sources, processing assumptions, and network
+construction commands are documented in `../data/README.md`.
+
+### Final-study input versions
+
+The files under `data/` in this study are the frozen inputs used for
+the reproduced manuscript results.
+
+The final manufacturer evidence file incorporates prospective corrections
+documented in the accompanying correction log and evidence audit.
+
+The manufacturer peer network is also supplied as a frozen input.
+
+The upstream preprocessing scripts document the construction methodology,
+but exact regeneration of every frozen final-study input from raw sources
+has not been independently verified.
+
+This distinction does not affect reproduction of the published simulations
+from the supplied model-ready inputs.
