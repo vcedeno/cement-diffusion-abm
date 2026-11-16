@@ -1,0 +1,10 @@
+# Generated simulation results
+outputs/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# macOS
+.DS_Store
