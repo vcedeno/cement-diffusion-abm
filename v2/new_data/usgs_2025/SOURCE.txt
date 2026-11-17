@@ -1,0 +1,7 @@
+USGS Mineral Industry Surveys, Cement in December 2025 (released April 2026):
+https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/s3fs-public/media/files/mis-202512-cemen.pdf
+Table 2a (portland) and Table 2b (blended, incl. Type IL YTD column) shipments by destination, monthly 2025.
+Extracted 2026-11-07 via web fetch; checks: row sums vs Jan-Dec column within rounding (max 10 t, Texas southern rounded
+to 3 significant digits in the source), column sums vs totals within 500 t. 2024 annual values in the same report match
+the model's existing 2024 inputs to within 2 t (Texas portland 2,000 t revision).
+Sub-regions (CA, IL, NY, PA, TX) summed to states; Puerto Rico and foreign countries excluded, as in the existing file.

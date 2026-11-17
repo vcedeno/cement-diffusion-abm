@@ -1,0 +1,346 @@
+{
+ "fit_rmse_2010_22": 0.017577911938293955,
+ "forecast_rmse_2023_25": 0.03443432716287352,
+ "share_2025": 0.598760440489587,
+ "share_2025_obs": 0.6230354618237751,
+ "firms_2025": 20.0,
+ "firms_2025_obs": 18,
+ "state_rmse_2022": 0.17557491086496038,
+ "state_rmse_2025": 0.14422051257600188,
+ "firm_err_median_m": 3.0,
+ "firm_err_mean_m": 4.805555555555555,
+ "false_starts_expected": 2.86,
+ "false_start_capacity": 0.020010326818371234,
+ "missed_expected": 1.05,
+ "state_2025_model_vs_record": {
+  "AL": [
+   0.868,
+   0.973
+  ],
+  "AR": [
+   0.787,
+   0.726
+  ],
+  "AZ": [
+   0.001,
+   0.011
+  ],
+  "CA": [
+   0.005,
+   0.096
+  ],
+  "CO": [
+   0.849,
+   0.949
+  ],
+  "CT": [
+   0.507,
+   0.564
+  ],
+  "DE": [
+   0.828,
+   0.189
+  ],
+  "FL": [
+   0.772,
+   0.76
+  ],
+  "GA": [
+   0.778,
+   0.84
+  ],
+  "IA": [
+   0.718,
+   0.761
+  ],
+  "ID": [
+   1.0,
+   0.97
+  ],
+  "IL": [
+   0.719,
+   0.659
+  ],
+  "IN": [
+   0.867,
+   0.907
+  ],
+  "KS": [
+   0.477,
+   0.726
+  ],
+  "KY": [
+   0.686,
+   0.889
+  ],
+  "LA": [
+   0.855,
+   0.716
+  ],
+  "MA": [
+   0.605,
+   0.413
+  ],
+  "MD": [
+   0.866,
+   0.917
+  ],
+  "ME": [
+   0.183,
+   0.525
+  ],
+  "MI": [
+   0.999,
+   0.804
+  ],
+  "MN": [
+   1.0,
+   0.946
+  ],
+  "MO": [
+   0.575,
+   0.813
+  ],
+  "MS": [
+   0.855,
+   0.835
+  ],
+  "MT": [
+   1.0,
+   0.907
+  ],
+  "NC": [
+   0.908,
+   0.758
+  ],
+  "NE": [
+   0.95,
+   0.721
+  ],
+  "NH": [
+   0.709,
+   0.309
+  ],
+  "NJ": [
+   0.583,
+   0.418
+  ],
+  "NM": [
+   0.88,
+   0.438
+  ],
+  "NV": [
+   0.007,
+   0.122
+  ],
+  "NY": [
+   0.662,
+   0.511
+  ],
+  "OH": [
+   0.749,
+   0.888
+  ],
+  "OK": [
+   0.673,
+   0.913
+  ],
+  "OR": [
+   0.942,
+   0.909
+  ],
+  "PA": [
+   0.724,
+   0.391
+  ],
+  "RI": [
+   0.778,
+   0.468
+  ],
+  "SC": [
+   0.751,
+   0.731
+  ],
+  "SD": [
+   1.0,
+   0.944
+  ],
+  "TN": [
+   0.739,
+   0.934
+  ],
+  "TX": [
+   0.342,
+   0.474
+  ],
+  "UT": [
+   0.969,
+   0.916
+  ],
+  "VA": [
+   0.719,
+   0.814
+  ],
+  "VT": [
+   0.972,
+   0.52
+  ],
+  "WA": [
+   1.0,
+   0.848
+  ],
+  "WI": [
+   0.751,
+   0.9
+  ],
+  "WV": [
+   0.859,
+   0.816
+  ],
+  "WY": [
+   0.714,
+   0.716
+  ]
+ },
+ "firms_model_vs_record": [
+  {
+   "firm": "Argos",
+   "record_bound": false,
+   "err_m": 4.0,
+   "p_start": 1.0
+  },
+  {
+   "firm": "Armstrong (private)",
+   "record_bound": false,
+   "err_m": NaN,
+   "p_start": 1.0
+  },
+  {
+   "firm": "Buzzi",
+   "record_bound": false,
+   "err_m": 5.0,
+   "p_start": 1.0
+  },
+  {
+   "firm": "CRH",
+   "record_bound": true,
+   "err_m": 0.0,
+   "p_start": 1.0
+  },
+  {
+   "firm": "Capitol Aggregates (private)",
+   "record_bound": true,
+   "err_m": 6.0,
+   "p_start": 1.0
+  },
+  {
+   "firm": "Cemex",
+   "record_bound": true,
+   "err_m": 0.0,
+   "p_start": 1.0
+  },
+  {
+   "firm": "Eagle Materials",
+   "record_bound": true,
+   "err_m": 0.0,
+   "p_start": 1.0
+  },
+  {
+   "firm": "Eagle/Heidelberg JV",
+   "record_bound": false,
+   "err_m": NaN,
+   "p_start": 0.98
+  },
+  {
+   "firm": "Elementia/Valderrivas (Giant)",
+   "record_bound": true,
+   "err_m": 8.0,
+   "p_start": 1.0
+  },
+  {
+   "firm": "GCC",
+   "record_bound": false,
+   "err_m": 5.0,
+   "p_start": 0.99
+  },
+  {
+   "firm": "HeidelbergCement (Lehigh Hanson)",
+   "record_bound": true,
+   "err_m": 0.0,
+   "p_start": 1.0
+  },
+  {
+   "firm": "LafargeHolcim",
+   "record_bound": true,
+   "err_m": 6.5,
+   "p_start": 1.0
+  },
+  {
+   "firm": "Martin Marietta",
+   "record_bound": true,
+   "err_m": 0.0,
+   "p_start": 0.94
+  },
+  {
+   "firm": "Mitsubishi Materials",
+   "record_bound": true,
+   "err_m": 26.0,
+   "p_start": 0.05
+  },
+  {
+   "firm": "Monarch (independent)",
+   "record_bound": true,
+   "err_m": 2.0,
+   "p_start": 1.0
+  },
+  {
+   "firm": "Salt River Materials (SRPMIC)",
+   "record_bound": false,
+   "err_m": NaN,
+   "p_start": 0.03
+  },
+  {
+   "firm": "Summit Materials",
+   "record_bound": false,
+   "err_m": 8.0,
+   "p_start": 1.0
+  },
+  {
+   "firm": "Taiheiyo (CalPortland)",
+   "record_bound": true,
+   "err_m": 12.0,
+   "p_start": 1.0
+  },
+  {
+   "firm": "Titan",
+   "record_bound": false,
+   "err_m": 2.0,
+   "p_start": 0.98
+  },
+  {
+   "firm": "UNACEM",
+   "record_bound": false,
+   "err_m": NaN,
+   "p_start": 0.85
+  },
+  {
+   "firm": "Vicat",
+   "record_bound": true,
+   "err_m": 0.5,
+   "p_start": 0.99
+  },
+  {
+   "firm": "Votorantim (St Marys)",
+   "record_bound": true,
+   "err_m": 1.5,
+   "p_start": 1.0
+  }
+ ],
+ "calibrated_best": {
+  "kiiv": 0.9987,
+  "pi0": 0.0013,
+  "piD": 0.1013,
+  "piL": 0.0006,
+  "sigR": 0.6276
+ }
+}

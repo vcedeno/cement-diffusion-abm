@@ -1,0 +1,38 @@
+district,imports_2022_kt,imports_2023_kt,destination_states,origin,included
+Anchorage,135.0,140.0,AK,sea,1
+Baltimore,38.0,2.0,MD,sea,1
+Boston,159.0,268.0,MA,sea,1
+Charleston,108.0,69.0,SC,sea,1
+Chicago,89.0,86.0,IL,sea,1
+Dallas-Fort Worth,0.0,0.0,TX,sea,1
+El Paso,494.0,336.0,TX;NM,mexico,1
+Honolulu,253.0,325.0,HI,sea,1
+Houston-Galveston,5307.0,5347.0,TX,sea,1
+Laredo,646.0,385.0,TX,mexico,1
+Los Angeles,417.0,262.0,CA,sea,1
+Miami,1207.0,1249.0,FL,sea,1
+Mobile,298.0,232.0,AL,sea,1
+New Orleans,1962.0,1805.0,LA;MS;AR;TN;MO;KY,sea,1
+New York City,1863.0,1659.0,NY;NJ;CT,sea,1
+Nogales,495.0,565.0,AZ,mexico,1
+Norfolk,651.0,725.0,VA,sea,1
+Philadelphia,465.0,630.0,PA;NJ;DE,sea,1
+Port Arthur,2.0,70.0,TX,sea,1
+Providence,595.0,505.0,RI;MA;CT,sea,1
+San Diego,1.0,2.0,CA,mexico,1
+San Francisco,2324.0,1915.0,CA,sea,1
+Savannah,1094.0,1434.0,GA,sea,1
+Tampa,1551.0,1891.0,FL,sea,1
+Wilmington,136.0,311.0,NC,sea,1
+Buffalo,,,,canada,0
+Cleveland,,,,canada,0
+Columbia-Snake,,,,canada,0
+Detroit,,,,canada,0
+Duluth,,,,canada,0
+Great Falls,,,,canada,0
+Minneapolis,,,,canada,0
+Ogdensburg,,,,canada,0
+Pembina,,,,canada,0
+Portland ME,,,,canada,0
+St. Albans,,,,canada,0
+Seattle,,,,canada,0

@@ -1,0 +1,51 @@
+state,not_before,accepted_by,status
+AK,2012-01,2018-07,window only
+AL,2019-12,2019-12,verified
+AR,2018-07,2024-04,window only
+AZ,2022-01,2022-05,verified (range)
+CA,2021-10,2021-10,verified
+CO,2008-01,2008-01,verified
+CT,2023-07,2024-04,verified (approx.)
+DE,2018-07,2024-04,window only
+FL,2015-01,2017-01,verified (range)
+GA,2018-07,2024-04,window only
+HI,2018-07,2024-04,window only
+IA,,2013-04,verified (upper bound)
+ID,2012-01,2018-07,window only
+IL,2012-01,2023-08,verified (first general provision found)
+IN,,2015-09,verified (upper bound)
+KS,2012-01,2018-07,window only
+KY,,2018-01,verified (upper bound)
+LA,2012-01,2018-07,window only
+MA,2018-07,2024-04,window only
+MD,2022-01,2022-05,verified (range)
+ME,2018-07,2024-04,window only
+MI,2012-01,2022-02,verified (first general provision found)
+MN,2012-01,2018-07,window only
+MO,2012-01,2018-07,window only
+MS,2014-01,2014-01,"earlier compilation, not verified"
+MT,2012-01,2018-07,window only
+NC,,2014-02,verified (upper bound)
+ND,2012-01,2018-07,window only
+NE,2012-01,2018-07,window only
+NH,2023-01,2023-01,"earlier compilation, not verified"
+NJ,,2021-03,verified (upper bound)
+NM,2018-07,2024-04,window only
+NV,,2022-06,verified (upper bound)
+NY,2013-01,2013-01,"earlier compilation, not verified"
+OH,2012-01,2018-07,window only
+OK,,2012-12,verified (upper bound)
+OR,2012-01,2018-07,window only
+PA,2018-07,2024-04,window only
+RI,2018-07,2024-04,window only
+SC,,2014-05,verified (upper bound)
+SD,2018-07,2024-04,window only
+TN,,2014-03,verified (upper bound)
+TX,,2014-03,verified (upper bound)
+UT,2009-01,2009-01,consistent
+VA,2012-01,2018-07,window only
+VT,2022-01,2022-05,verified (range)
+WA,2012-01,2018-07,window only
+WI,2012-01,2018-07,window only
+WV,2012-01,2018-07,window only
+WY,2018-07,2024-04,window only
