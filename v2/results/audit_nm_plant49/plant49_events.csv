@@ -1,0 +1,11 @@
+condition,seed,intro_month,withdrawal_month
+baseline,10000,147,161
+keep_opc_49,10000,147,1000000
+baseline,10001,163,163
+keep_opc_49,10001,163,1000000
+baseline,10002,140,140
+keep_opc_49,10002,140,1000000
+baseline,10003,153,153
+keep_opc_49,10003,153,1000000
+baseline,10004,145,145
+keep_opc_49,10004,145,1000000
