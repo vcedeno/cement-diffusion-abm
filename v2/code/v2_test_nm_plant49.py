@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Paired V2 diagnostic: block OPC withdrawal at mfr_src_id=49, leave PLC introduction intact.
 Run from v2/code: python ../v2_test_nm_plant49.py
-Does not modify repository code or original results. Counterfactual is NOT a historical claim.
+Does not modify repository code or original results. Experiment is NOT a historical claim.
 """
 from pathlib import Path
 import sys, types, json
@@ -28,7 +28,7 @@ needle='        if cand.any():\n'
 if source.count(needle)!=1: raise RuntimeError('Model source changed: cannot locate unique withdrawal decision block')
 source_cf=source.replace(needle,'        cand[_audit_plant_index] = False  # diagnostic: keep OPC at plant 49\n'+needle,1)
 namespace=dict(vars(model));namespace['_audit_plant_index']=j
-exec(compile(source_cf, str(model.__file__)+' [counterfactual]', 'exec'),namespace)
+exec(compile(source_cf, str(model.__file__)+' [experiment]', 'exec'),namespace)
 sim_cf=namespace['simulate']
 
 # First five validation seeds, from the first calibrated parameter set.
@@ -58,9 +58,9 @@ D=pd.DataFrame({'year':[i[1] for i in wide.index],
                 'delta_NM':[float(v) for v in (wide['NM']['keep_opc_49']-wide['NM']['baseline'])],
                 'delta_national':[float(v) for v in (wide['national']['keep_opc_49']-wide['national']['baseline'])]})
 D.groupby('year').agg(['median','min','max']).to_csv(OUT/'paired_effect_summary.csv')
-print('\nMedian effects (counterfactual minus baseline, percentage points):')
+print('\nMedian effects (experiment minus baseline, percentage points):')
 print((100*D.groupby('year')[['delta_NM','delta_national']].median()).round(2).to_string())
-print('\n2025 baseline and counterfactual NM share:')
+print('\n2025 baseline and experiment NM share:')
 print(R[R.year==2025].groupby('condition')[['NM','national']].median().round(4).to_string())
 print('\nPlant events:');print(P.to_string(index=False))
 print('\nFiles:',OUT)

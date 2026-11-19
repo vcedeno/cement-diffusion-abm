@@ -66,7 +66,7 @@ summary = pd.DataFrame(records)
 states = pd.DataFrame(state_records)
 plants = pd.DataFrame(plant_records)
 # The prior greedy experiment ran 5 seeds but allocation is independent of seed.
-prior = RESULTS / "audit_capacity_counterfactual" / "monthly_system_feasibility.csv"
+prior = RESULTS / "audit_capacity_experiment" / "monthly_system_feasibility.csv"
 if prior.exists():
     g = pd.read_csv(prior).groupby("month", as_index=False).agg(
         greedy_allocated_t=("capacity_allocated_t","mean"),

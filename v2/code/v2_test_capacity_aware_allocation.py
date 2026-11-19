@@ -17,7 +17,7 @@ from data import ModelData
 from validate import predictive_sets
 from config import MONTHS, RESULTS
 
-OUT=RESULTS/'audit_capacity_counterfactual'; OUT.mkdir(parents=True,exist_ok=True)
+OUT=RESULTS/'audit_capacity_experiment'; OUT.mkdir(parents=True,exist_ok=True)
 d=ModelData()
 ps=predictive_sets()
 NSETS=1  # one parameter set x 5 seeds first; increase only after checking diagnostics
@@ -123,4 +123,4 @@ print(A[(A.year==2025)&A.state.isin(['NM','DE','CA','NV','PA','TX'])].groupby('s
 print('\n2025 system totals (monthly averages):')
 print(C[C.month.str.startswith('2025')][['total_demand_t','capacity_allocated_t','unallocated_t','total_active_capacity_t']].mean().round(1).to_string())
 print('\nOutputs:',OUT)
-print('CAUTION: unallocated demand has zero PLC in this diagnostic, not necessarily OPC in reality. Large unallocated fractions mean the counterfactual is NOT a defensible market-share prediction.')
+print('CAUTION: unallocated demand has zero PLC in this diagnostic, not necessarily OPC in reality. Large unallocated fractions mean the experiment is NOT a defensible market-share prediction.')

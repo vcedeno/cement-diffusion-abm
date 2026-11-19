@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""Paired V2 ownership-exclusivity counterfactual, no repository files modified.
-Run from repository root: python /path/to/v2_p2_ownership_counterfactual.py --repo v2 --runs 20
+"""Paired V2 ownership-exclusivity experiment, no repository files modified.
+Run from repository root: python /path/to/v2_p2_ownership_experiment.py --repo v2 --runs 20
 """
 import argparse, json, sys, types
 from pathlib import Path
@@ -39,7 +39,7 @@ for old,new in [
 module=types.ModuleType('model_p2_all_suppliers');module.__file__=str(code/'model.py')
 exec(compile(source,str(code/'model.py'),'exec'),module.__dict__)
 
-out=a.out or root/'results'/'p2_ownership_counterfactual';out.mkdir(parents=True,exist_ok=True)
+out=a.out or root/'results'/'p2_ownership_experiment';out.mkdir(parents=True,exist_ok=True)
 d=ModelData(); params=predictive_sets()[:a.runs]; tg=usgs_targets()
 obs=tg['st_net'].reindex(d.states)[2025].to_numpy(float)
 obs_nat=float(np.mean(tg['nat_net'][T_OBS-12:T_OBS]))
